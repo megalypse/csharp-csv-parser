@@ -60,6 +60,8 @@ class Program
 For each line of the CSV, the extractor will store the data contained within the column 0 in the attribute ```Name``` of the ```Person``` class,
 and the same logic can be applied to the second item in the list. The extractor will store the data contained with the column 1 in the ```Age``` attribute
 of the ```Person``` class.
+Note that the names your pass as the first argument to the ```CsvTarget``` constructor must have the same name as the class equivalent attribute. An example is
+the ```Person``` class, as it have both ```Name``` and ```Age``` as attributes.
 
 - But how can we tell the extractor to wich class i want to extract the data to? And most importantly, how can I extract the data?
 
