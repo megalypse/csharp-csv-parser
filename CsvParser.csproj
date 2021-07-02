@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company>alliguieri.bruno</Company>
+    <Authors>Bruno Alliguieri</Authors>
+    <RepositoryUrl>https://github.com/megalypse/csharp-csv-parser</RepositoryUrl>
+    <Description>CSV line parser to C# objects.</Description>
+    <PackageId>Alliguieri.CsvParser</PackageId>
+    <Product>Alliguieri.CsvParser</Product>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
