@@ -98,5 +98,18 @@ namespace CsvParser
 
             return instance;
         }
+
+        private void CheckOptions<T>(ExtractOptions options)
+        {
+            if (options.ShouldRepeat is false)
+            {
+                List<Type> typeInterfaces = typeof(T).GetInterfaces().ToList();
+
+                bool containsEquatable = typeInterfaces.Contains(typeof(IEquatable<T>));
+
+                if (!containsEquatable)
+
+            }
+        }
     }
 }
