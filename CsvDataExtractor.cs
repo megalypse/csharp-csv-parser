@@ -38,14 +38,14 @@ namespace CsvParser
 
                 if (!options.ShouldRepeat)
                 {
-                    resultList.Add(result);
-                }
-                else
-                {
                     bool isAlreadyAdded = resultList.Contains(result);
 
                     if (!isAlreadyAdded)
                         resultList.Add(result);
+                }
+                else
+                {
+                    resultList.Add(result);
                 }
             };
 
