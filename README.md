@@ -18,7 +18,7 @@ johane,22
 ```
 
 - And the following class you want to generate objects using the previous mentioned string:
-```
+```csharp
 public class Person
 {
     public string Name { get; set; }
@@ -28,7 +28,7 @@ public class Person
 ```
 
 - Create a new instance of ```CsvDataExtractor``` in your code:
-```
+```csharp
 class Program
 {
     static void Main(string[] args)
@@ -40,7 +40,7 @@ class Program
 ```
 - Now we need to tell the extractor on what attribute it should put the selected data,
 and we'll  do this by creating a ```List<CsvTarget>```;
-```
+```csharp
 class Program
 {
     static void Main(string[] args)
@@ -66,7 +66,7 @@ the ```Person``` class, as it have both ```Name``` and ```Age``` as attributes.
 - But how can we tell the extractor to wich class i want to extract the data to? And most importantly, how can I extract the data?
 
 It's very simple indeed! Let's see the following code:
-```
+```csharp
 class Program
 {
     static void Main(string[] args)
@@ -93,7 +93,7 @@ method is all you need to do to tell the extractor to wich class you want to gen
 argument ```new()```?
 
 The third argument is an options argument. Let's see how it's class is defined:
-```
+```csharp
 public class ExtractOptions
 {
     public string Separator { get; set; } = ",";
@@ -105,7 +105,7 @@ public class ExtractOptions
 ```
 
 So let's say the csv you're using does not use "," as a column separator, but uses ";" intead. Then you should call the extract method in the following way:
-```
+```csharp
 extractor.ExtractData<Person>(
     targets,
     csvString,
@@ -114,7 +114,8 @@ extractor.ExtractData<Person>(
 });
 ```
 Or your CSV file have a header that you might want to ignore, then you could use the ```HaveHeader``` attribute:
-```extractor.ExtractData<Person>(
+```csharp
+extractor.ExtractData<Person>(
     targets,
     csvString,
     new ExtractOptions {
