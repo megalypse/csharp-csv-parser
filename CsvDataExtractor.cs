@@ -1,3 +1,4 @@
+using CsvParser.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,9 @@ namespace CsvParser
         )
         where T : class
         {
-            var genericType = typeof(T);
+            CheckOptions<T>(options);
 
+            var genericType = typeof(T);
             PropertyInfo[] properties = genericType.GetProperties();
             List<string> csvLines = csvString.Split("\n").ToList();
             List<T> resultList = new();
@@ -76,7 +78,7 @@ namespace CsvParser
                     PropertyInfo property = properties.Where(x => x.Name == data.FieldName).FirstOrDefault();
 
                     if (property is null)
-                        throw new Exception($"Tipo ${classType} não contem a propriedade {data.FieldName}");
+                        throw new Exception($"Type ${classType} doesn't contains {data.FieldName} property.");
 
                     bool areNamesEqual = property.Name.Equals(data.FieldName);
 
@@ -108,7 +110,11 @@ namespace CsvParser
                 bool containsEquatable = typeInterfaces.Contains(typeof(IEquatable<T>));
 
                 if (!containsEquatable)
+                {
+                    string errorMessage = $"Class must implement System.IEquatable interface if ShouldRepeat is False.";
 
+                    throw new InterfaceNotFoundException(errorMessage);
+                }
             }
         }
     }
