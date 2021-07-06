@@ -124,7 +124,7 @@ namespace CsvParser.CsvObjectParser
         )
         {
             Type typeOfGeneric = typeof(T);
-            Type csvTargetAttributeType = typeof(ColumnTargetAttribute);
+            Type csvTargetAttributeType = typeof(SourceColumnAttribute);
 
 
             T instance = (T)Activator.CreateInstance(typeOfGeneric);
@@ -134,7 +134,7 @@ namespace CsvParser.CsvObjectParser
             {
                 List<string> columns = BreakLine(extractOptions.Separator, line);
 
-                ColumnTargetAttribute annotation = (ColumnTargetAttribute)property
+                SourceColumnAttribute annotation = (SourceColumnAttribute)property
                     .GetCustomAttributes(csvTargetAttributeType, false)
                     .First();
 

@@ -2,12 +2,12 @@
 
 namespace CsvParser.Annotations
 {
-    public class ColumnTargetAttribute : Attribute
+    public class SourceColumnAttribute : Attribute
     {
         
         public int columnNumber;
 
-        public ColumnTargetAttribute(int columnNumber)
+        public SourceColumnAttribute(int columnNumber)
         {
             this.columnNumber = columnNumber;
         }
