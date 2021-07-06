@@ -11,7 +11,7 @@ namespace Example
         {
             string csvString = $"name,age\njohn,18\njohanne,19";
 
-            CsvDataExtractor extractor = new();
+            CsvParser.CsvParser extractor = new();
             List<CsvTarget> targetList = new()
             {
                 new("Name", 0),

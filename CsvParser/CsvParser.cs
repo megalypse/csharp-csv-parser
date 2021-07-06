@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace CsvParser
 {
-    public class CsvDataExtractor
+    public class CsvParser
     {
         public List<T> ExtractData<T>(
             List<CsvTarget> targetList,
