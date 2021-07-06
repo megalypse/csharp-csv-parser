@@ -36,17 +36,13 @@ namespace CsvParser.CsvObjectParser
                     options
                 );
 
-                if (options.ShouldRepeatEquatableObject is false)
+                if (options.ShouldSkipEqualObject is true)
                 {
-                    bool contains = resultList.Contains(result);
-
-                    if (contains is false)
-                        resultList.Add(result);
+                    bool isAlreadyPresent = resultList.Contains(result);
+                    if (isAlreadyPresent is false)  resultList.Add(result);
                 }
-                else
-                {
+                else 
                     resultList.Add(result);
-                }
             };
 
             return resultList;
@@ -71,10 +67,13 @@ namespace CsvParser.CsvObjectParser
 
                 T instance = GenerateObject<T>(line, options);
 
-                if (options.ShouldRepeatEquatableObject is true)
-                    list.Add(instance);
+                if (options.ShouldSkipEqualObject is true)
+                {
+                    bool isAlreadyPresent = list.Contains(instance);
+                    if (isAlreadyPresent is false) list.Add(instance);
+                }
                 else
-                    if (list.Contains(instance) is false) list.Add(instance);
+                    list.Add(instance);
             }
 
             return list;
@@ -95,7 +94,6 @@ namespace CsvParser.CsvObjectParser
             targetList.ForEach(data =>
             {
                 int counter = 0;
-
 
                 do
                 {
@@ -124,7 +122,7 @@ namespace CsvParser.CsvObjectParser
         )
         {
             Type typeOfGeneric = typeof(T);
-            Type csvTargetAttributeType = typeof(CsvSourceColumnAttribute);
+            Type csvTargetAttributeType = typeof(SourceColumnAttribute);
 
 
             T instance = (T)Activator.CreateInstance(typeOfGeneric);
@@ -134,7 +132,7 @@ namespace CsvParser.CsvObjectParser
             {
                 List<string> columns = BreakLine(extractOptions.Separator, line);
 
-                CsvSourceColumnAttribute annotation = (CsvSourceColumnAttribute)property
+                SourceColumnAttribute annotation = (SourceColumnAttribute)property
                     .GetCustomAttributes(csvTargetAttributeType, false)
                     .First();
 
@@ -152,7 +150,7 @@ namespace CsvParser.CsvObjectParser
 
         private void CheckOptions<T>(ExtractOptions options)
         {
-            if (options.ShouldRepeatEquatableObject is false)
+            if (options.ShouldSkipEqualObject is true)
             {
                 List<Type> typeInterfaces = typeof(T).GetInterfaces().ToList();
                 bool containsEquatable = typeInterfaces.Contains(typeof(IEquatable<T>));

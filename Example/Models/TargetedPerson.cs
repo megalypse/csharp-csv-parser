@@ -5,10 +5,10 @@ namespace Example.Models
 {
     public class TargetedPerson : IEquatable<TargetedPerson>
     {
-        [CsvSourceColumn(0)]
+        [SourceColumn(0)]
         public string Name { get; set; }
 
-        [CsvSourceColumn(1)]
+        [SourceColumn(1)]
         public string Age { get; set; }
 
         public bool Equals(TargetedPerson other)

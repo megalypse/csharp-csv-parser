@@ -25,7 +25,7 @@ namespace Example
                 new ExtractOptions
                 {
                     ShouldSkipHeader = true,
-                    ShouldRepeatEquatableObject = false
+                    ShouldSkipEqualObject = false
             });
 
             Debug.Assert(personList.Count.Equals(2));
@@ -39,7 +39,7 @@ namespace Example
                 new ExtractOptions
                 { 
                     ShouldSkipHeader = true,
-                    ShouldRepeatEquatableObject = false 
+                    ShouldSkipEqualObject = false 
             });
 
             Debug.Assert(targetedPersonList.Count.Equals(2));

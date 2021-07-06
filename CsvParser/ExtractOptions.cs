@@ -6,6 +6,6 @@ namespace CsvParser
 
         public bool ShouldSkipHeader { get; set; } = false;
 
-        public bool ShouldRepeatEquatableObject { get; set; } = true;
+        public bool ShouldSkipEqualObject { get; set; } = true;
     }
 }
