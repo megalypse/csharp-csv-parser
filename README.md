@@ -132,7 +132,7 @@ This attribute have a default value of ```","```.
 
 - ```bool HaveHeader```
 
-If your CSV have a header that you want to skip, just set this attribute to ```true```.
+If your CSV have a header that you want to skip, just set this attribute to ```false```.
 
 - ```bool ShouldRepeat```
 
