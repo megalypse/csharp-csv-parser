@@ -1,7 +1,8 @@
-﻿using CsvParser;
+﻿using CsvParser.CsvObjectParser;
 using Example.Models;
 using System.Diagnostics;
 using System.Collections.Generic;
+using CsvParser;
 
 namespace Example
 {
@@ -11,14 +12,14 @@ namespace Example
         {
             string csvString = $"name,age\njohn,18\njohanne,19";
 
-            CsvParser.CsvParser extractor = new();
+            CsvObjectParser extractor = new();
             List<CsvTarget> targetList = new()
             {
                 new("Name", 0),
                 new("Age", 1)
             };
 
-            List<Person> personList = extractor.ExtractData<Person>(
+            List<Person> personList = extractor.Parse<Person>(
                 targetList,
                 csvString,
                 new ExtractOptions
@@ -33,7 +34,7 @@ namespace Example
             Debug.Assert(personList[1].Name.Equals("johanne"));
             Debug.Assert(personList[1].Age.Equals("19"));
 
-            List<TargetedPerson> targetedPersonList = extractor.ExtractData<TargetedPerson>(
+            List<TargetedPerson> targetedPersonList = extractor.Parse<TargetedPerson>(
                 csvString, 
                 new ExtractOptions
                 { 
