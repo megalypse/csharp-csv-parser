@@ -23,8 +23,8 @@ namespace Example
                 csvString,
                 new ExtractOptions
                 {
-                    HaveHeader = true,
-                    ShouldRepeat = false
+                    ShouldSkipHeader = true,
+                    ShouldRepeatEquatableObject = false
             });
 
             Debug.Assert(personList.Count.Equals(2));
@@ -37,8 +37,8 @@ namespace Example
                 csvString, 
                 new ExtractOptions
                 { 
-                    HaveHeader = true, 
-                    ShouldRepeat = false 
+                    ShouldSkipHeader = true,
+                    ShouldRepeatEquatableObject = false 
             });
 
             Debug.Assert(targetedPersonList.Count.Equals(2));

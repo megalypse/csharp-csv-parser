@@ -4,8 +4,8 @@ namespace CsvParser
     {
         public string Separator { get; set; } = ",";
 
-        public bool HaveHeader { get; set; } = false;
+        public bool ShouldSkipHeader { get; set; } = false;
 
-        public bool ShouldRepeat { get; set; } = true;
+        public bool ShouldRepeatEquatableObject { get; set; } = true;
     }
 }

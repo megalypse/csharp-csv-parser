@@ -25,7 +25,7 @@ namespace CsvParser
             for (var index = 0; index < csvLines.Count(); index++)
             {
                 string line = csvLines[index];
-                bool isFirstIndexAndHaveHeader = options.HaveHeader && index.Equals(0);
+                bool isFirstIndexAndHaveHeader = options.ShouldSkipHeader && index.Equals(0);
 
                 if (isFirstIndexAndHaveHeader)
                     continue;
@@ -36,7 +36,7 @@ namespace CsvParser
                     options
                 );
 
-                if (options.ShouldRepeat is false)
+                if (options.ShouldRepeatEquatableObject is false)
                 {
                     bool contains = resultList.Contains(result);
 
@@ -65,13 +65,13 @@ namespace CsvParser
             {
                 string line = csvLines[i];
                 bool isFirstLoop = i.Equals(0);
-                bool shouldSkipLoop = ShouldSkipLoop(isFirstLoop, options.HaveHeader);
+                bool shouldSkipLoop = ShouldSkipLoop(isFirstLoop, options.ShouldSkipHeader);
 
                 if (shouldSkipLoop) continue;
 
                 T instance = GenerateObject<T>(line, options);
 
-                if (options.ShouldRepeat is true)
+                if (options.ShouldRepeatEquatableObject is true)
                     list.Add(instance);
                 else
                     if (list.Contains(instance) is false) list.Add(instance);
@@ -152,7 +152,7 @@ namespace CsvParser
 
         private void CheckOptions<T>(ExtractOptions options)
         {
-            if (options.ShouldRepeat is false)
+            if (options.ShouldRepeatEquatableObject is false)
             {
                 List<Type> typeInterfaces = typeof(T).GetInterfaces().ToList();
                 bool containsEquatable = typeInterfaces.Contains(typeof(IEquatable<T>));
