@@ -10,8 +10,6 @@ namespace CsvParser
 {
     public class CsvDataExtractor
     {
-
-
         public List<T> ExtractData<T>(
             List<CsvTarget> targetList,
             string csvString,
@@ -126,7 +124,7 @@ namespace CsvParser
         )
         {
             Type typeOfGeneric = typeof(T);
-            Type csvTargetAttributeType = typeof(CsvTargetMarkAttribute);
+            Type csvTargetAttributeType = typeof(ColumnTargetAttribute);
 
 
             T instance = (T)Activator.CreateInstance(typeOfGeneric);
@@ -136,7 +134,7 @@ namespace CsvParser
             {
                 List<string> columns = BreakLine(extractOptions.Separator, line);
 
-                CsvTargetMarkAttribute? annotation = (CsvTargetMarkAttribute)property
+                ColumnTargetAttribute annotation = (ColumnTargetAttribute)property
                     .GetCustomAttributes(csvTargetAttributeType, false)
                     .First();
 
@@ -161,7 +159,7 @@ namespace CsvParser
 
                 if (containsEquatable is false)
                 {
-                    string errorMessage = $"Class must implement System.IEquatable interface if ShouldRepeat is False.";
+                    string errorMessage = "Class must implement System.IEquatable interface if ShouldRepeat is False.";
 
                     throw new InterfaceNotFoundException(errorMessage);
                 }
