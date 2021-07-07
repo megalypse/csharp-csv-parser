@@ -1,4 +1,9 @@
 # Generated files
 /obj
 /bin
-/vs
+
+*/obj
+*/bin
+
+./.vs
+*/.vs
