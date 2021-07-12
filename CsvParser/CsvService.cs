@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CsvParser
 {
-    static class CsvService
+    public static class CsvService
     {
         public static void CheckOptions<T>(ExtractOptions options)
         {
