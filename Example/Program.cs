@@ -10,8 +10,8 @@ namespace Example
     {
         static void Main(string[] args)
         {
-            string csvString = $"name,age\njohn,18\njohanne,19";
-
+            string csvString = $"name,age\njohn,18\njohanne,18";
+            
             CsvObjectParser extractor = new();
             List<CsvTarget> targetList = new()
             {
@@ -39,7 +39,7 @@ namespace Example
                 new ExtractOptions
                 {
                     ShouldSkipHeader = true,
-                    ShouldSkipEqualObject = false
+                    ShouldSkipEqualObject = true
                 });
 
             Debug.Assert(targetedPersonList.Count.Equals(2));

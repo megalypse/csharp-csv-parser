@@ -11,6 +11,8 @@
     <Product>Alliguieri.CsvParser</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>1.1.0</Version>
+    <PackageTags>csv,parser,object,parse</PackageTags>
+    <Copyright>Alliguieri.Bruno</Copyright>
   </PropertyGroup>
 
 </Project>
