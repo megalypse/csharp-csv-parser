@@ -41,7 +41,7 @@ namespace Tests
 
             Assert.Equal(2, splittedLine.Count);
             Assert.Equal("statement1", splittedLine[0]);
-            Assert.Equal("statement2", splittedLine[1]);
+            Assert.Equal("statement", splittedLine[1]);
         }
 
         [Fact]
