@@ -1,4 +1,10 @@
 # Generated files
-*/obj/*
-*/bin/*
-/vs
+/obj
+/bin
+
+*/obj
+*/bin
+
+./.vs
+*/.vs
+.vs

@@ -24,7 +24,7 @@ namespace CsvParser
             List<string> csvLines = csvString.Split("\n").ToList();
             List<T> resultList = new();
 
-            for (var index = 0; index < csvLines.Count(); index++)
+            for (var index = 0; index < csvLines.Count; index++)
             {
                 string line = csvLines[index];
                 bool isFirstIndexAndHaveHeader = options.ShouldSkipHeader && index.Equals(0);
@@ -100,11 +100,11 @@ namespace CsvParser
 
                 do
                 {
-                    var fieldsLastIndex = properties.Count() - 1;
+                    var fieldsLastIndex = properties.Count - 1;
 
                     PropertyInfo property = GetPropertyOrThrow<T>(properties, data.FieldName);
 
-                    bool isOutOfBonds = data.CsvColumn >= columns.Count();
+                    bool isOutOfBonds = data.CsvColumn >= columns.Count;
 
                     if (!isOutOfBonds)
                     {
@@ -113,7 +113,7 @@ namespace CsvParser
                     }
 
                 }
-                while (counter++ < properties.Count());
+                while (counter++ < properties.Count);
             });
 
             return instance;

@@ -2,6 +2,11 @@
 
 The CsvParser version `1.1.0` is now out with some new features, bug-fixes and a new documentation to support the newly added code.
 
+## First step:
+- Before attempting to follow any of the steps bellow, please install the nuget package from the following NuGet link:
+	- `https://www.nuget.org/packages/Alliguieri.CsvParser/1.1.0`
+- And then import the package namespace to your working file:
+	- `using CsvParser;` 
 
  ##  Custom Attribute usage method:
 Now you can extract data from your CSV using the `CsvSourceColumn` annotation. It makes the process that was already simplified, even more easier. Let's suppose you have the following content:
