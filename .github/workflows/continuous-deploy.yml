@@ -1,14 +1,14 @@
 name: continuous-deploy
 on:
-    release:
-        types: [created]
+  release:
+    types: [created]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-        packages: write
-        contents: read
+      packages: write
+      contents: read
     steps:
       - uses: actions/checkout@v2
 
