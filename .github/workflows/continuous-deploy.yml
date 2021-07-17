@@ -1,0 +1,35 @@
+name: continuous-deploy
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: .NET Core Setup
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "5.0.301"
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_KEY}}
+
+      - name: Install Project Dependencies
+        run: dotnet restore
+
+      - name: Clean packages
+        run: rm CsvParser/bin/Release/*.nupkg
+
+      - name: Build Project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Create the package
+        run: dotnet pack --configuration Release CsvParser/CsvParser.csproj
+
+      - name: Publish package to NuGet
+        run: dotnet nuget push CsvParser/bin/Release/*.nupkg
