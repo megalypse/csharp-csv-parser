@@ -16,4 +16,4 @@ jobs:
       - name: Build Project
         run: dotnet build --configuration Release --no-restore
       - name: Tests Integrity
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test
