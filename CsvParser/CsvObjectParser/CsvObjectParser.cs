@@ -1,10 +1,8 @@
 ﻿using CsvParser.Annotations;
-using CsvParser.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace CsvParser.CsvObjectParser
 {
@@ -17,12 +15,12 @@ namespace CsvParser.CsvObjectParser
         )
         where T : class
         {
-            CheckOptions<T>(options);
+            CsvService.CheckOptions<T>(options);
 
             List<string> csvLines = csvString.Split("\n").ToList();
             List<T> resultList = new();
 
-            for (var index = 0; index < csvLines.Count(); index++)
+            for (var index = 0; index < csvLines.Count; index++)
             {
                 string line = csvLines[index];
                 bool isFirstIndexAndHaveHeader = options.ShouldSkipHeader && index.Equals(0);
@@ -53,15 +51,16 @@ namespace CsvParser.CsvObjectParser
             ExtractOptions options
         )
         {
-            CheckOptions<T>(options);
-            List<string> csvLines = BreakCsv(csvString);
+            CsvService.CheckOptions<T>(options);
+
+            List<string> csvLines = CsvService.BreakCsv(csvString);
             List<T> list = new();
 
             for (var i = 0; i < csvLines.Count; i++)
             {
                 string line = csvLines[i];
                 bool isFirstLoop = i.Equals(0);
-                bool shouldSkipLoop = ShouldSkipLoop(isFirstLoop, options.ShouldSkipHeader);
+                bool shouldSkipLoop = CsvService.ShouldSkipLoop(isFirstLoop, options.ShouldSkipHeader);
 
                 if (shouldSkipLoop) continue;
 
@@ -79,15 +78,15 @@ namespace CsvParser.CsvObjectParser
             return list;
         }
 
-        private T GenerateObject<T>(
+        private static T GenerateObject<T>(
             List<CsvTarget> targetList,
             string line,
             ExtractOptions options
         )
         {
             var classType = typeof(T);
-            List<string> columns = BreakLine(options.Separator, line);
-            List<PropertyInfo> properties = GetTypePropertyInfoList(classType);
+            List<string> columns = CsvService.BreakLine(options.Separator, line);
+            List<PropertyInfo> properties = CsvService.GetTypePropertyInfoList(classType);
 
             T instance = (T)Activator.CreateInstance(classType);
 
@@ -97,11 +96,11 @@ namespace CsvParser.CsvObjectParser
 
                 do
                 {
-                    var fieldsLastIndex = properties.Count() - 1;
+                    var fieldsLastIndex = properties.Count - 1;
 
-                    PropertyInfo property = GetPropertyOrThrow<T>(properties, data.FieldName);
+                    PropertyInfo property = CsvService.GetPropertyOrThrow<T>(properties, data.FieldName);
 
-                    bool isOutOfBonds = data.CsvColumn >= columns.Count();
+                    bool isOutOfBonds = data.CsvColumn >= columns.Count;
 
                     if (!isOutOfBonds)
                     {
@@ -110,13 +109,13 @@ namespace CsvParser.CsvObjectParser
                     }
 
                 }
-                while (counter++ < properties.Count());
+                while (counter++ < properties.Count);
             });
 
             return instance;
         }
 
-        private T GenerateObject<T>(
+        private static T GenerateObject<T>(
             string line,
             ExtractOptions extractOptions
         )
@@ -130,7 +129,7 @@ namespace CsvParser.CsvObjectParser
 
             foreach (PropertyInfo property in properties)
             {
-                List<string> columns = BreakLine(extractOptions.Separator, line);
+                List<string> columns = CsvService.BreakLine(extractOptions.Separator, line);
 
                 CsvSourceColumnAttribute annotation = (CsvSourceColumnAttribute)property
                     .GetCustomAttributes(csvTargetAttributeType, false)
@@ -148,45 +147,16 @@ namespace CsvParser.CsvObjectParser
             return instance;
         }
 
-        private void CheckOptions<T>(ExtractOptions options)
-        {
-            if (options.ShouldSkipEqualObject is true)
-            {
-                List<Type> typeInterfaces = typeof(T).GetInterfaces().ToList();
-                bool containsEquatable = typeInterfaces.Contains(typeof(IEquatable<T>));
+        
 
-                if (containsEquatable is false)
-                {
-                    string errorMessage = "Class must implement System.IEquatable interface if ShouldRepeat is False.";
+        
 
-                    throw new InterfaceNotFoundException(errorMessage);
-                }
-            }
-        }
+        
 
-        private string ColumnSeparatorRgx(string separator) => $"{separator}(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+        
 
-        private List<string> BreakLine(string separator, string line) =>
-            Regex.Split(line, ColumnSeparatorRgx(separator)).ToList();
+        
 
-        private List<string> BreakCsv(string csvString) =>
-            csvString.Split("\n").ToList();
-
-        private bool ShouldSkipLoop(bool isFirstLoop, bool haveHeader) =>
-            isFirstLoop && haveHeader;
-
-        private PropertyInfo GetPropertyOrThrow<T>(List<PropertyInfo> propertyList, string desiredName)
-        {
-            PropertyInfo property = propertyList
-                        .Where(x => x.Name.Equals(desiredName))
-                        .FirstOrDefault();
-
-            if (property is null)
-                throw new Exception($"Type ${typeof(T)} doesn't contain {desiredName} property.");
-
-            return property;
-        }
-
-        private List<PropertyInfo> GetTypePropertyInfoList(Type type) => type.GetProperties().ToList();
+        
     }
 }

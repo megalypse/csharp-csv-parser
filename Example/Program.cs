@@ -43,8 +43,8 @@ namespace Example
                 });
 
             Debug.Assert(targetedPersonList.Count.Equals(2));
-            Debug.Assert(targetedPersonList[0].Name.Equals("john"));
-            Debug.Assert(targetedPersonList[0].Age.Equals("18"));
+            Debug.Assert(targetedPersonList[0].Name.Equals("joh"));
+            Debug.Assert(targetedPersonList[0].Age.Equals("181"));
             Debug.Assert(targetedPersonList[1].Name.Equals("johanne"));
             Debug.Assert(targetedPersonList[1].Age.Equals("19"));
 

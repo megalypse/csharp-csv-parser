@@ -1,0 +1,21 @@
+name: run-tests
+on: [pull_request]
+jobs:
+  check-tests-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: .NET Core Setup
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "5.0.301"
+
+      - name: Install Project Dependencies
+        run: dotnet restore
+        
+      - name: Build Project
+        run: dotnet build --configuration Release --no-restore
+        
+      - name: Tests Integrity
+        run: dotnet test  --no-restore --verbosity normal
