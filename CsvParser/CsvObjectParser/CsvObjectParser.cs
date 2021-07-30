@@ -17,6 +17,8 @@ namespace CsvParser.CsvObjectParser
         {
             CsvService.CheckOptions<T>(options);
 
+            csvString = csvString.Trim();
+
             List<string> csvLines = csvString.Split("\n").ToList();
             List<T> resultList = new();
 
@@ -52,6 +54,8 @@ namespace CsvParser.CsvObjectParser
         )
         {
             CsvService.CheckOptions<T>(options);
+
+            csvString = csvString.Trim();
 
             List<string> csvLines = CsvService.BreakCsv(csvString);
             List<T> list = new();
