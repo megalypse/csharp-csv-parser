@@ -22,9 +22,6 @@ jobs:
       - name: Install Project Dependencies
         run: dotnet restore
 
-      - name: Clean packages
-        run: rm CsvParser/bin/Release/*.nupkg
-
       - name: Build Project
         run: dotnet build --configuration Release --no-restore
 
